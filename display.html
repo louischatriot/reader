@@ -1,0 +1,26 @@
+﻿<html>
+<head>
+<title>{{title}}</title>
+</head>
+<body>
+
+<img src="/images/{{directory}}/{{current}}" alt="Image">
+
+<script type="text/javascript">
+  document.addEventListener('keydown', function (k) {
+      if (k.keyCode === 37 && '{{previous}}' !== 'noshow') {
+      document.location = "/{{directory}}/{{previous}}";
+    }
+
+    if (k.keyCode === 39 && '{{next}}' !== 'noshow') {
+      document.location = "/{{directory}}/{{next}}";
+    }
+
+    if (k.keyCode === 13) {
+      document.location = "/";
+    }
+  });
+</script>
+
+</body>
+</html>
