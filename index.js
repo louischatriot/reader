@@ -30,12 +30,13 @@ server.on('request', function (req, res) {
   }
 
   // Root page lists all directories
+  // Should use an actual templating language ...
   if (req.url === '/') {
-    var content = '<ul>';
+    var content = '<html><head><title>List of albums</title><meta charset="utf-8"></head><body><ul>';
     fs.readdirSync('images').forEach(function (d) {
       content += '<li><a href="/' + d + '">' + d + '</a></li>';
     });
-    content += '</ul>';
+    content += '</ul></body></html>';
     res.setHeader('content-type', 'text/html');
     res.write(content);
     res.end();
