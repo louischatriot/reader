@@ -19,7 +19,7 @@ server.on('request', function (req, res) {
   }
 
   // Replace url-encoded spaces by real spaces
-  req.url = req.url.replace(/%20/g, ' ');
+  req.url = decodeURIComponent(req.url);
 
   // Serve image if image requested, counting on intelligent browsers understanding image type without my help. So evil.
   if (req.url.match(/^\/images\//)) {
