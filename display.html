@@ -5,7 +5,7 @@
 </head>
 <body>
 
-<img src="/images/{{directory}}/{{current}}" alt="Image">
+<img id="the-image" src="/images/{{directory}}/{{current}}" alt="Image" style="cursor: pointer;">
 
 <script type="text/javascript">
   document.addEventListener('keydown', function (k) {
@@ -20,6 +20,10 @@
     if (k.keyCode === 13) {
       document.location = "/";
     }
+  });
+
+  document.getElementById('the-image').addEventListener('click', function() {
+    document.location = "/{{directory}}/{{next}}";
   });
 </script>
 
