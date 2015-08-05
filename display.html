@@ -23,7 +23,9 @@
   });
 
   document.getElementById('the-image').addEventListener('click', function() {
-    document.location = "/{{directory}}/{{next}}";
+	if ('{{next}}' !== 'noshow') {
+	  document.location = "/{{directory}}/{{next}}";
+	}
   });
 </script>
 

@@ -22,9 +22,10 @@ server.on('request', function (req, res) {
   req.url = decodeURIComponent(req.url);
 
   // Serve image if image requested, counting on intelligent browsers understanding image type without my help. So evil.
-  if (req.url.match(/^\/images\//)) {
-    var image = fs.readFileSync(req.url.substring(1));
-    res.write(image);
+  // Also used to serve other static files (css and js) if they are in the corresponding folder
+  if (req.url.match(/^\/images\//) || req.url.match(/^\/css\/.*\.css$/) || req.url.match(/^\/js\/.*\.js$/)) {
+    var file = fs.readFileSync(req.url.substring(1));
+    res.write(file);
     res.end();
     return;
   }
@@ -32,11 +33,14 @@ server.on('request', function (req, res) {
   // Root page lists all directories
   // Should use an actual templating language ...
   if (req.url === '/') {
-    var content = '<html><head><title>List of albums</title><meta charset="utf-8"></head><body><ul>';
+    var content = fs.readFileSync('listing.html', 'utf8')
+      , list = '';
+
     fs.readdirSync('images').forEach(function (d) {
-      content += '<li><a href="/' + d + '">' + d + '</a></li>';
+      list += '<li style="margin-bottom: 10px;"><a href="/' + d + '">' + d + '</a></li>';
     });
-    content += '</ul></body></html>';
+    content = content.replace(/{{items_list}}/g, list);
+
     res.setHeader('content-type', 'text/html');
     res.write(content);
     res.end();

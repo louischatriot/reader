@@ -1,0 +1,39 @@
+<html>
+<head>
+<title>List of albums</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="/css/listing.css">
+</head>
+
+<body>
+
+<ul>
+  {{items_list}}
+</ul>
+
+<script src="/js/zepto.min.js"></script>
+<script type="text/javascript">
+  var current = 0, max = $('ul li').length;
+  
+  $(document).on('keydown', function (evt) {
+    if (evt.keyCode === 40) {
+      current += 1;
+    }
+
+    if (evt.keyCode === 38) {
+      current -= 1;
+    }
+
+    if (evt.keyCode === 13) {
+      document.location = $('ul li:nth-child(' + current + ') a').attr('href');
+    }
+
+    if (current < 1) { current = max; }
+    if (current > max) { current = 1; }
+
+    $('ul li').removeClass('item-selected');
+    $('ul li:nth-child(' + current + ')').addClass('item-selected');
+  });
+</script>
+
+</body></html>
